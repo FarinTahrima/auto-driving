@@ -11,7 +11,6 @@ public class CarPositionValidator implements Validator {
     @Override
     public void validate(String input) throws InvalidArgumentsLengthException, InvalidValueException, InvalidDirectionException {
         int x, y;
-        char direction;
         String[] position = input.split(" ");
 
         // Invalid case 1: invalid no. of arguments

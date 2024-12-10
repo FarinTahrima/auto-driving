@@ -1,7 +1,5 @@
 package com.auto_driving.menu;
 
-import com.auto_driving.model.RectangularField;
-
 public class MenuContext {
     private MenuState currentState;
 

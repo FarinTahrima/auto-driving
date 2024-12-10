@@ -1,13 +1,7 @@
 package com.auto_driving.model;
 
-import com.auto_driving.menu.MenuState;
-import com.auto_driving.validator.RectangularFieldValidator;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.auto_driving.AutoDrivingConsole.askForInput;
-import static com.auto_driving.AutoDrivingConsole.validateInput;
 
 public class RectangularField {
     private static RectangularField instance;
