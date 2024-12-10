@@ -1,10 +1,11 @@
-package com.auto_driving.rectangular_field;
+package com.auto_driving.validator;
 
 import com.auto_driving.exception.InvalidArgumentsLengthException;
 import com.auto_driving.exception.NonPosititveValueException;
 
-public class RectangularFieldValidator {
-    public void validateInput(String input) throws InvalidArgumentsLengthException, NonPosititveValueException {
+public class RectangularFieldValidator implements Validator {
+    @Override
+    public void validate(String input) throws InvalidArgumentsLengthException, NonPosititveValueException {
         int width, height;
         String[] dimensions = input.split(" ");
 
