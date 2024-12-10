@@ -1,6 +1,6 @@
 package com.auto_driving.menu;
 
-public class Start implements MenuState{
+public class StartState implements MenuState{
 
     @Override
     public void executeRequest() {

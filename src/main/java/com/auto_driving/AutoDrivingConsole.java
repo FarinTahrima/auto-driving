@@ -1,9 +1,6 @@
 package com.auto_driving;
 
-import com.auto_driving.menu.FieldOptions;
-import com.auto_driving.menu.MenuContext;
-import com.auto_driving.menu.Start;
-import com.auto_driving.rectangular_field.RectangularField;
+import com.auto_driving.menu.*;
 import com.auto_driving.validator.Validator;
 
 import java.util.Scanner;
@@ -14,17 +11,25 @@ public class AutoDrivingConsole {
         // Create context
         MenuContext menuContext = new MenuContext();
 
-        // Initial State: Start Page
-        menuContext.setCurrentState(new Start());
+        // Initial State: Start
+        menuContext.setCurrentState(new StartState());
         menuContext.request();
 
-        // Start Page >> Rectangular Field
-        menuContext.setCurrentState(new RectangularField());
+        // Start Page >> Rectangular Field Setup
+        menuContext.setCurrentState(new RectangularFieldSetupState());
         menuContext.request();
 
         // Rectangular Field >> Field Options
-        menuContext.setCurrentState(new FieldOptions());
+        FieldOptionState fieldOptionState = new FieldOptionState();
+        menuContext.setCurrentState(fieldOptionState);
         menuContext.request();
+
+        if (fieldOptionState.getFieldOptionSelected() == 1) {
+            menuContext.setCurrentState(new AddCarState());
+            menuContext.request();
+        }
+
+
     }
 
     public static String askForInput(String message) {

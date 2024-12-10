@@ -1,12 +1,11 @@
 package com.auto_driving.validator;
 
 import com.auto_driving.exception.InvalidArgumentsLengthException;
-import com.auto_driving.exception.NonPosititveValueException;
+import com.auto_driving.exception.InvalidValueException;
 
 public class RectangularFieldValidator implements Validator {
     @Override
-    public void validate(String input) throws InvalidArgumentsLengthException, NonPosititveValueException {
-        int width, height;
+    public void validate(String input) throws InvalidArgumentsLengthException, InvalidValueException {
         String[] dimensions = input.split(" ");
 
         // Invalid Case 1: Incorrect no. of arguments
@@ -14,20 +13,8 @@ public class RectangularFieldValidator implements Validator {
             throw new InvalidArgumentsLengthException(2);
         }
 
-        try {
-            width =  Integer.parseInt(dimensions[0]);
-            height = Integer.parseInt(dimensions[1]);
-        }
-
-        // Invalid case 2: Non-numerical values
-        catch (NumberFormatException e) {
-            // Handle non-numeric input
-            throw new NumberFormatException("Invalid values. Please enter numerical values.");
-        }
-
-        // invalid case 3: Non-positive values
-        if (width <= 0 || height <= 0) {
-            throw new NonPosititveValueException();
+        if (!dimensions[0].matches("^[1-9]\\d*$") || !dimensions[1].matches("^[1-9]\\d*$")) {
+            throw new InvalidValueException();
         }
     }
 }

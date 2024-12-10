@@ -5,7 +5,7 @@ import com.auto_driving.validator.OptionsValidator;
 import static com.auto_driving.AutoDrivingConsole.askForInput;
 import static com.auto_driving.AutoDrivingConsole.validateInput;
 
-public class FieldOptions implements MenuState {
+public class FieldOptionState implements MenuState {
 
     boolean isOptionValid = false;
     private int fieldOptionSelected;
@@ -18,8 +18,16 @@ public class FieldOptions implements MenuState {
                     "[2] Run simulation");
             isOptionValid = validateInput(new OptionsValidator(), input);
             if (isOptionValid) {
-                System.out.println("Selected Option is " + input);
+                setFieldOptionSelected(Integer.parseInt(input));
             }
         }
+    }
+
+    public int getFieldOptionSelected() {
+        return fieldOptionSelected;
+    }
+
+    public void setFieldOptionSelected(int fieldOptionSelected) {
+        this.fieldOptionSelected = fieldOptionSelected;
     }
 }

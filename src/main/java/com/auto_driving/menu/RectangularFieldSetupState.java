@@ -1,16 +1,14 @@
-package com.auto_driving.rectangular_field;
+package com.auto_driving.menu;
 
-import com.auto_driving.menu.MenuState;
+import com.auto_driving.model.RectangularField;
 import com.auto_driving.validator.RectangularFieldValidator;
 
 import static com.auto_driving.AutoDrivingConsole.askForInput;
 import static com.auto_driving.AutoDrivingConsole.validateInput;
 
-public class RectangularField implements MenuState {
+public class RectangularFieldSetupState implements MenuState {
     boolean isInputValid = false;
-
-    private long width;
-    private long height;
+    private RectangularField field;
 
     @Override
     public void executeRequest() {
@@ -19,15 +17,16 @@ public class RectangularField implements MenuState {
             isInputValid = validateInput(new RectangularFieldValidator(), input);
             if (isInputValid) {
                 String[] dimensions = input.split(" ");
-                generateRectangleField(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
+                field = RectangularField.getInstance(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
             }
         }
     }
 
-    private void generateRectangleField (long width, long height)  {
-        this.width = width;
-        this.height = height;
-        System.out.printf("You have created a field of %d x %d.\n", width, height);
+    public RectangularField getField() {
+        return field;
     }
 
+    public void setField(RectangularField field) {
+        this.field = field;
+    }
 }
