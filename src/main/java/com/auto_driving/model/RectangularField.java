@@ -22,9 +22,7 @@ public class RectangularField {
     }
 
     public static void addCarToField(Car car) {
-        System.out.println(cars.size());
         cars.add(car);
-        System.out.println(cars.size());
     }
 
     public static int getHeight() {
@@ -41,5 +39,13 @@ public class RectangularField {
 
     public void setWidth(int width) {
         RectangularField.width = width;
+    }
+
+    public static List<Car> getCars() {
+        return cars;
+    }
+
+    public static void setCars(List<Car> cars) {
+        RectangularField.cars = cars;
     }
 }

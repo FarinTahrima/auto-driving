@@ -1,9 +1,6 @@
 package com.auto_driving.validator;
 
-import com.auto_driving.exception.InvalidArgumentsLengthException;
-import com.auto_driving.exception.InvalidDirectionException;
-import com.auto_driving.exception.InvalidValueException;
-import com.auto_driving.exception.PositionOutsideBoundaryException;
+import com.auto_driving.exception.*;
 import com.auto_driving.model.RectangularField;
 
 public class CarPositionValidator implements Validator {
@@ -31,7 +28,16 @@ public class CarPositionValidator implements Validator {
             throw new PositionOutsideBoundaryException(RectangularField.getWidth(), RectangularField.getHeight());
         }
 
-        // Invalid case 4: direction is not N, S, E or W
+        // Invalid case 5: x and y position is already taken by another car
+        boolean isPositionAlreadyTaken = RectangularField.getCars()
+                .stream()
+                .anyMatch(car -> x == car.getPosition().getX()
+                    && y == car.getPosition().getY());
+        if (isPositionAlreadyTaken) {
+            throw new PositionAlreadyTakenException(x, y);
+        }
+
+        // Invalid case 6: direction is not N, S, E or W
         // if more than one char for direction, then only check with first char
         if (!position[2].toUpperCase().matches("^[NESW]\\w*$")) {
             throw new InvalidDirectionException();

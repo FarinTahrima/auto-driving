@@ -1,9 +1,8 @@
 package com.auto_driving.validator;
 
-import com.auto_driving.exception.InvalidArgumentsLengthException;
-import com.auto_driving.exception.InvalidDirectionException;
-import com.auto_driving.exception.InvalidValueException;
-import com.auto_driving.exception.PositionOutsideBoundaryException;
+import com.auto_driving.exception.*;
+import com.auto_driving.model.Car;
+import com.auto_driving.model.CarPosition;
 import com.auto_driving.model.RectangularField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,16 @@ public class CarPositionValidatorTest {
             The max value for x can be 9.
             The max value for y can be 9.
             """;
+    private final static String POSITION_ALREADY_TAKEN = "The position (9,9) is already taken by another car.";
 
     @BeforeEach
     public void setupRectangularField() {
         RectangularField.getInstance(10,10);
+        CarPosition positionForCar = new CarPosition(9, 9, 'S');
+
+        // can ignore the commands for this case as of now
+        Car car = new Car("Random", positionForCar, null);
+        RectangularField.addCarToField(car);
     }
 
     @Test
@@ -150,6 +155,13 @@ public class CarPositionValidatorTest {
         CarPositionValidator validator = new CarPositionValidator();
         PositionOutsideBoundaryException exception = assertThrows(PositionOutsideBoundaryException.class, () -> validator.validate("10 10 E"));
         assertEquals(POSITION_OUTSIDE_BOUNDARY, exception.getMessage());
+    }
+
+    @Test
+    public void testPositionIsAlreadyTaken() {
+        CarPositionValidator validator = new CarPositionValidator();
+        PositionAlreadyTakenException exception = assertThrows(PositionAlreadyTakenException.class, () -> validator.validate("9 9 S"));
+        assertEquals(POSITION_ALREADY_TAKEN, exception.getMessage());
     }
 
     @Test
