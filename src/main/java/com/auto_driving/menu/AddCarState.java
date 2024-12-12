@@ -28,6 +28,7 @@ public class AddCarState implements MenuState {
         while (!isNameValid) {
             String nameInput = askForInput("Please enter the name of the car");
             isNameValid = validateInput(new CarNameValidator(), nameInput);
+            carName = nameInput;
         }
 
         // ask for car position
@@ -62,5 +63,7 @@ public class AddCarState implements MenuState {
 
         Car car = new Car(carName, carPosition, carCommands);
         RectangularField.addCarToField(car);
+        System.out.println("Your current list of cars are:");
+        RectangularField.printListOfCars(false);
     }
 }

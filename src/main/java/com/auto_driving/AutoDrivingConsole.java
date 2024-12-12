@@ -10,26 +10,7 @@ public class AutoDrivingConsole {
     public static void main(String[] args) {
         // Create context
         MenuContext menuContext = new MenuContext();
-
-        // Initial State: Start
-        menuContext.setCurrentState(new StartState());
         menuContext.request();
-
-        // Start Page >> Rectangular Field Setup
-        menuContext.setCurrentState(new RectangularFieldSetupState());
-        menuContext.request();
-
-        // Rectangular Field >> Field Options
-        FieldOptionState fieldOptionState = new FieldOptionState();
-        menuContext.setCurrentState(fieldOptionState);
-        menuContext.request();
-
-        if (fieldOptionState.getFieldOptionSelected() == 1) {
-            menuContext.setCurrentState(new AddCarState());
-            menuContext.request();
-        }
-
-
     }
 
     public static String askForInput(String message) {

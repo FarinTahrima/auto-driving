@@ -14,7 +14,7 @@ public class FieldOptionState implements MenuState {
     public void executeRequest() {
         while (!isOptionValid) {
             String input = askForInput("""
-                    Please choose from the following options:
+                    \nPlease choose from the following options:
                     [1] Add a car to field
                     [2] Run simulation""");
             isOptionValid = validateInput(new OptionsValidator(), input);

@@ -2,6 +2,7 @@ package com.auto_driving.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RectangularField {
     private static RectangularField instance;
@@ -47,5 +48,23 @@ public class RectangularField {
 
     public static void setCars(List<Car> cars) {
         RectangularField.cars = cars;
+    }
+
+    public static void printListOfCars(boolean isPostSimulation) {
+        String carInfo = "";
+        for (Car car : cars) {
+            String nameStr = car.getName();
+            String positionStr = String.format("(%d,%d)", car.getPosition().getX(), car.getPosition().getY());
+            String directionStr = String.valueOf(car.getPosition().getDirection());
+            carInfo = String.format("- %s, %s %s", nameStr, positionStr, directionStr);
+            if (!isPostSimulation) {
+                String commandsStr =  car.getCommands().stream()
+                        .map(String::valueOf) // Convert Character to String
+                        .collect(Collectors.joining());
+                carInfo = String.format("- %s, %s %s, %s", nameStr, positionStr, directionStr, commandsStr);
+            }
+
+            System.out.println(carInfo);
+        }
     }
 }
