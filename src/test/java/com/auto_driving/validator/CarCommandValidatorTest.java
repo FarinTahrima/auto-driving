@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CarCommandValidatorTest {
     private final static String INVALID_COMMANDS = "No valid command found. Please input F, L or R for your commands.";
 
+    // valid commands (single)
     @Test
     public void testValidSingleCommandForward() {
         CarCommandValidator validator = new CarCommandValidator();
@@ -26,6 +27,7 @@ public class CarCommandValidatorTest {
         assertDoesNotThrow(() -> validator.validate("R"));
     }
 
+    // valid commands (single) - lower cases are accepted too
     @Test
     public void testValidSingleCommandForwardLowerCase() {
         CarCommandValidator validator = new CarCommandValidator();
@@ -44,6 +46,7 @@ public class CarCommandValidatorTest {
         assertDoesNotThrow(() -> validator.validate("r"));
     }
 
+    // when invalid command is set and is just one char
     @Test
     public void testInvalidSingleCommand() {
         CarCommandValidator validator = new CarCommandValidator();
@@ -58,6 +61,7 @@ public class CarCommandValidatorTest {
         assertEquals(INVALID_COMMANDS, exception.getMessage());
     }
 
+    // when string with multiple char with at least one valid char is input, invalid ones will be ignored
     @Test
     public void testValidMultipleCommandsWithAllCorrectCommandsInUpperCase() {
         CarCommandValidator validator = new CarCommandValidator();
@@ -88,6 +92,7 @@ public class CarCommandValidatorTest {
         assertDoesNotThrow(() -> validator.validate("FiARl"));
     }
 
+    // when no valid char is input among the multiple chars
     @Test
     public void testInvalidMultipleCommandWithNoCorrectLowerCase() {
         CarCommandValidator validator = new CarCommandValidator();

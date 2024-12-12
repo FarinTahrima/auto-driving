@@ -29,13 +29,14 @@ public class CarPositionValidatorTest {
         Car car = new Car("Random", positionForCar, null);
         RectangularField.addCarToField(car);
     }
-
+    // when valid input for position
     @Test
     public void testPositionInputAllValuesAreValid() {
         CarPositionValidator validator = new CarPositionValidator();
         assertDoesNotThrow(() -> validator.validate("1 2 N"));
     }
 
+    // when no. of arguments are not correct
     @Test
     public void testArgumentsLessThanThree() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -50,6 +51,7 @@ public class CarPositionValidatorTest {
         assertEquals(INVALID_NO_OF_ARGUMENTS, exception.getMessage());
     }
 
+    // when position x or y set is non-numerical
     @Test
     public void testNonNumericalValuesForX() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -71,6 +73,7 @@ public class CarPositionValidatorTest {
         assertEquals(INVALID_VALUE, exception.getMessage());
     }
 
+    // when position x or y set is non-positive or zero
     @Test
     public void testZeroX() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -113,6 +116,7 @@ public class CarPositionValidatorTest {
         assertEquals(INVALID_VALUE, exception.getMessage());
     }
 
+    // when position can cross the field boundary
     @Test
     public void testXExceedFieldWidth() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -157,6 +161,7 @@ public class CarPositionValidatorTest {
         assertEquals(POSITION_OUTSIDE_BOUNDARY, exception.getMessage());
     }
 
+    // when position is taken by another car already by default
     @Test
     public void testPositionIsAlreadyTaken() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -164,6 +169,7 @@ public class CarPositionValidatorTest {
         assertEquals(POSITION_ALREADY_TAKEN, exception.getMessage());
     }
 
+    // test when correct direction and one upper cap char is set
     @Test
     public void testDirectionIsNorth() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -188,6 +194,7 @@ public class CarPositionValidatorTest {
         assertDoesNotThrow(() -> validator.validate("2 4 W"));
     }
 
+    // when multiple chars are input for direction, just take first char and other chars will be ignored
     @Test
     public void testDirectionStartsWithValidChar() {
         CarPositionValidator validator = new CarPositionValidator();
@@ -201,6 +208,7 @@ public class CarPositionValidatorTest {
         assertEquals(INVALID_DIRECTION, exception.getMessage());
     }
 
+    // when invalid char for direction is input
     @Test
     public void testDirectionIsInvalid() {
         CarPositionValidator validator = new CarPositionValidator();

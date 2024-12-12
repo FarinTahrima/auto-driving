@@ -34,4 +34,13 @@ public class CarPosition {
     public void setDirection(char direction) {
         this.direction = direction;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        CarPosition position = (CarPosition) obj;
+        return x == position.x && y == position.y && direction == position.direction;
+    }
+
 }

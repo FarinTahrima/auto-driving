@@ -25,6 +25,7 @@ public class CarNameValidatorTest {
         RectangularField.addCarToField(toyotaCar);
     }
 
+    // when valid name is set
     @Test
     public void testValidName() {
         CarNameValidator validator = new CarNameValidator();
@@ -43,6 +44,7 @@ public class CarNameValidatorTest {
         assertDoesNotThrow(() -> validator.validate("Hot Wheels"));
     }
 
+    // when invalid names are set
     @Test
     public void testInvalidEmptyName() {
         CarNameValidator validator = new CarNameValidator();
@@ -57,6 +59,7 @@ public class CarNameValidatorTest {
         assertEquals(INVALID_NAME, exception.getMessage());
     }
 
+    // when name is already taken by another car
     @Test
     public void testInvalidAsNameAlreadyTaken() {
         CarNameValidator validator = new CarNameValidator();

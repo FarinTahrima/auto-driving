@@ -10,12 +10,14 @@ public class RectangularFieldValidatorTest {
     private final static String INVALID_NO_OF_ARGUMENTS = "Invalid Number of Arguments. Please enter 2 values separated by a space.";
     private final static String INVALID_VALUE = "Please input numerical values that are more than 0.";
 
+    // when valid dimension is input
     @Test
     public void testValidDimensions() {
         RectangularFieldValidator validator = new RectangularFieldValidator();
         assertDoesNotThrow(() -> validator.validate("5 4"));
     }
 
+    // when incorrect no. of arguments are input
     @Test
     public void testArgumentsLessThanTwo() {
         RectangularFieldValidator validator = new RectangularFieldValidator();
@@ -30,6 +32,7 @@ public class RectangularFieldValidatorTest {
         assertEquals(INVALID_NO_OF_ARGUMENTS, exception.getMessage());
     }
 
+    // when non-numerical values are set for width/height
     @Test
     public void testNonNumericalValuesForWidth() {
         RectangularFieldValidator validator = new RectangularFieldValidator();
@@ -51,6 +54,7 @@ public class RectangularFieldValidatorTest {
         assertEquals(INVALID_VALUE, exception.getMessage());
     }
 
+    // when width/height set is a non-positive number or zero
     @Test
     public void testZeroWidth() {
         RectangularFieldValidator validator = new RectangularFieldValidator();

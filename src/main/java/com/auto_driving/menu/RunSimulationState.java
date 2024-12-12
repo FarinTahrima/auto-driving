@@ -108,5 +108,4 @@ public class RunSimulationState implements MenuState {
         return position;
     }
 
-
 }

@@ -9,6 +9,7 @@ public class OptionsValidatorTest {
     private final static String INVALID_OPTION = "Invalid option. Please either input 1 or 2.";
     private final static String INVALID_NUMBER_FORMAT = "Invalid value. Please enter a numerical value.";
 
+    // when valid option is input
     @Test
     public void testOptionInputIsOne() {
         OptionsValidator validator = new OptionsValidator();
@@ -21,6 +22,7 @@ public class OptionsValidatorTest {
         assertDoesNotThrow(() -> validator.validate("2"));
     }
 
+    // when non-numerical value is input for options
     @Test
     public void testOptionInputIsNonNumericalValues() {
         OptionsValidator validator = new OptionsValidator();
@@ -28,6 +30,7 @@ public class OptionsValidatorTest {
         assertEquals(INVALID_NUMBER_FORMAT, exception.getMessage());
     }
 
+    // when non-positive, zero or number more than 2 is input for option
     @Test
     public void testOptionInputIsZero() {
         OptionsValidator validator = new OptionsValidator();
