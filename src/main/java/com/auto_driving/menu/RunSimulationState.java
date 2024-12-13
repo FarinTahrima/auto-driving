@@ -4,29 +4,38 @@ import com.auto_driving.model.Car;
 import com.auto_driving.model.CarPosition;
 import com.auto_driving.model.RectangularField;
 
+import static com.auto_driving.AutoDrivingConsole.getPositionXandYPlots;
+
+
 public class RunSimulationState implements MenuState {
+
+    int step_number = 1;
+
     @Override
     public void executeRequest() {
-        simulateCar(RectangularField.getCars().get(0));
+        RectangularField.printListOfCars(false);
+        startSimulation();
     }
 
-    public void simulateCar(Car car) {
-        CarPosition position = car.getPosition();
-        for(char c: car.getCommands()) {
-            switch(c) {
-                case 'L':
-                    car.setPosition(rotateLeft(position));
-                    break;
-                case 'R':
-                    car.setPosition(rotateRight(position));
-                    break;
-                case 'F':
-                    car.setPosition(moveForward(position));
-                    break;
-                default:
-                    break;
-            }
+    public void moveCar(Car car, char command) {
+        CarPosition previousPosition = car.getPosition();
+        CarPosition newPosition = previousPosition;
+        String previousPositionPlot = getPositionXandYPlots(previousPosition);
+        switch(command) {
+            case 'L':
+                newPosition = rotateLeft(previousPosition);
+                break;
+            case 'R':
+                newPosition = rotateRight(previousPosition);
+                break;
+            case 'F':
+                newPosition = moveForward(previousPosition);
+                RectangularField.updateOccupiedPosition(car, previousPositionPlot, getPositionXandYPlots(newPosition), step_number);
+                break;
+            default:
+                break;
         }
+        car.setPosition(newPosition);
     }
 
     public CarPosition rotateRight(CarPosition position) {
@@ -106,6 +115,23 @@ public class RunSimulationState implements MenuState {
                 break;
         }
         return position;
+    }
+
+    public void startSimulation() {
+
+        int max_commands_executed = RectangularField.getMaxCommandCount();
+        // continue to run the commands till the car with most commands has been executed or all the cars has collided
+        while(step_number <= max_commands_executed && RectangularField.getOccupiedPosition().getCollidedCarsCount() < RectangularField.getCars().size()) {
+            for(Car car: RectangularField.getCars()) {
+                // if the command size is less or same as the ongoing iteration number and the car hasnt collided yet -> move the car
+                if (step_number <= car.getCommands().size()  && !car.getCollisionIndicator().isCollided()) {
+                    moveCar(car, car.getCommands().get(step_number - 1));
+                }
+            }
+            step_number++;
+        }
+
+        RectangularField.printListOfCars(true);
     }
 
 }

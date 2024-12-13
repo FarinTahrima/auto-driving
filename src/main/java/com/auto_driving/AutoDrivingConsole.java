@@ -1,6 +1,7 @@
 package com.auto_driving;
 
 import com.auto_driving.menu.*;
+import com.auto_driving.model.CarPosition;
 import com.auto_driving.validator.Validator;
 
 import java.util.Scanner;
@@ -29,4 +30,7 @@ public class AutoDrivingConsole {
         }
     }
 
+    public static String getPositionXandYPlots(CarPosition position) {
+        return String.format("(%d,%d)", position.getX(), position.getY());
+    }
 }

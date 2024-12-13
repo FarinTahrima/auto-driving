@@ -6,6 +6,7 @@ public class Car {
     private String name;
     private CarPosition position;
     private List<Character> commands;
+    private CollisionIndicator collisionIndicator = new CollisionIndicator();
 
     public Car(String name, CarPosition position, List<Character> commands) {
         this.name = name;
@@ -35,5 +36,13 @@ public class Car {
 
     public void setCommands(List<Character> commands) {
         this.commands = commands;
+    }
+
+    public CollisionIndicator getCollisionIndicator() {
+        return collisionIndicator;
+    }
+
+    public void setCollisionIndicator(CollisionIndicator collisionIndicator) {
+        this.collisionIndicator = collisionIndicator;
     }
 }

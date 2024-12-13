@@ -63,7 +63,6 @@ public class AddCarState implements MenuState {
 
         Car car = new Car(carName, carPosition, carCommands);
         RectangularField.addCarToField(car);
-        System.out.println("Your current list of cars are:");
         RectangularField.printListOfCars(false);
     }
 }
