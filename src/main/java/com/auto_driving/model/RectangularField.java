@@ -10,6 +10,7 @@ public class RectangularField {
     private static RectangularField instance;
     private static int width;
     private static int height;
+
     private static List<Car> cars = new ArrayList<Car>();
     private static int maxCommandCount = 0;
     private static OccupiedPosition occupiedPosition = new OccupiedPosition();
@@ -23,6 +24,10 @@ public class RectangularField {
     public static RectangularField getInstance(int width, int height) {
         if (instance == null)
             instance = new RectangularField(width, height);
+        return instance;
+    }
+
+    public static RectangularField getInstance() {
         return instance;
     }
 

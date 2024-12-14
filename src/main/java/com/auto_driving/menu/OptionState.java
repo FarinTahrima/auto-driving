@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 import static com.auto_driving.AutoDrivingConsole.askForInput;
 import static com.auto_driving.AutoDrivingConsole.validateInput;
 
-public class OptionState implements MenuState {
+public abstract class OptionState implements MenuState {
 
     boolean isOptionValid = false;
     private int optionSelected;
@@ -24,8 +24,8 @@ public class OptionState implements MenuState {
     public void executeRequest() {
         while (!isOptionValid) {
             String optionsStr =  IntStream.range(0, options.size())
-                    .mapToObj(i -> String.format("[%d] %s\n", i + 1, options.get(i))) // Map index and element
-                    .collect(Collectors.joining()); // Collect as a list
+                    .mapToObj(i -> String.format("[%d] %s\n", i + 1, options.get(i)))
+                    .collect(Collectors.joining());
             String input = askForInput("\nPlease choose from the following options:\n" + optionsStr);
             isOptionValid = validateInput(new OptionsValidator(options), input);
             if (isOptionValid) {

@@ -2,11 +2,6 @@ package com.auto_driving.menu;
 
 import com.auto_driving.model.RectangularField;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
 public class MenuContext {
     private MenuState currentState;
 
@@ -29,33 +24,24 @@ public class MenuContext {
         String stateName = currentState.getClass().getSimpleName();
         switch(stateName) {
             case "StartState":
+                if (RectangularField.getInstance() != null) {
+                    RectangularField.resetInstance();
+                }
                 setCurrentState(new RectangularFieldSetupState());
                 break;
             case "RectangularFieldSetupState", "AddCarState":
-                List<String> fieldOptions = new ArrayList<>(Arrays.asList("Add a car to field", "Run Simulation"));
-                setCurrentState(new OptionState(fieldOptions));
+                setCurrentState(new FieldOptionState());
                 break;
-            case "OptionState":
-                OptionState optionState = (OptionState) currentState;
-                if (optionState.getOptionSelected() == 1 && Objects.equals(optionState.getOptions().get(0), "Add a car to field")) {
-                    setCurrentState(new AddCarState());
-                }
-                if (optionState.getOptionSelected() == 2 && Objects.equals(optionState.getOptions().get(1), "Run Simulation")) {
-                    setCurrentState(new RunSimulationState());
-                }
-
-                if (optionState.getOptionSelected() == 1 && Objects.equals(optionState.getOptions().get(0), "Start Over")) {
-                    RectangularField.resetInstance();
-                    setCurrentState(new StartState());
-                }
-                if (optionState.getOptionSelected() == 2 && Objects.equals(optionState.getOptions().get(1), "End")) {
-                    stateName = "";
-                    setCurrentState(null);
-                }
+            case "FieldOptionState":
+                FieldOptionState fieldOptionState = (FieldOptionState) currentState;
+                setCurrentState(fieldOptionState.getNextState());
                 break;
             case "RunSimulationState":
-                List<String> postSimulationOptions = new ArrayList<>(Arrays.asList("Start Over", "End"));
-                setCurrentState(new OptionState(postSimulationOptions));
+                setCurrentState(new PostSimulationState());
+                break;
+            case "PostSimulationState":
+                PostSimulationState postSimulationState = (PostSimulationState) currentState;
+                setCurrentState(postSimulationState.getNextState());
                 break;
             case "EndState":
                 stateName = "";
