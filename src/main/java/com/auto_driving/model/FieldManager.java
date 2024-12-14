@@ -7,16 +7,12 @@ import java.util.stream.Collectors;
 import static com.auto_driving.AutoDrivingConsole.getPositionXandYPlots;
 
 public class FieldManager {
-    private List<Car> cars = new ArrayList<Car>();
+    private List<Car> cars = new ArrayList<>();
     private OccupiedPosition occupiedPosition = new OccupiedPosition();
 
-    // getters and setters
+    // getters
     public List<Car> getCars() {
         return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
     }
 
     public OccupiedPosition getOccupiedPosition() {

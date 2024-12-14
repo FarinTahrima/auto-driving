@@ -12,7 +12,7 @@ import static com.auto_driving.AutoDrivingConsole.*;
 public abstract class OptionState implements MenuState {
 
     private int optionSelected;
-    private List<String> options = new ArrayList<>();
+    private List<String> options;
 
     public OptionState(List<String> options) {
         this.options = options;
@@ -36,13 +36,5 @@ public abstract class OptionState implements MenuState {
 
     public void setOptionSelected(int optionSelected) {
         this.optionSelected = optionSelected;
-    }
-
-    public List<String> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<String> options) {
-        this.options = options;
     }
 }

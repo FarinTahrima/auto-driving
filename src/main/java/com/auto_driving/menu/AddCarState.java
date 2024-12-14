@@ -20,7 +20,7 @@ public class AddCarState implements MenuState {
     @Override
     public void executeRequest() {
 
-        List<Character> carCommands = new ArrayList<Character>();
+        List<Character> carCommands = new ArrayList<>();
 
         // car name
         String carName = getInput("Please enter the name of the car", new CarNameValidator());

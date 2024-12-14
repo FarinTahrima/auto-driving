@@ -30,35 +30,20 @@ public class RectangularField {
         commandManager = new CommandManager();
     }
 
+    // getters
     public static int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        RectangularField.height = height;
     }
 
     public static int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        RectangularField.width = width;
-    }
-
     public static FieldManager getFieldManager() {
         return fieldManager;
     }
 
-    public static void setFieldManager(FieldManager fieldManager) {
-        RectangularField.fieldManager = fieldManager;
-    }
-
     public static CommandManager getCommandManager() {
         return commandManager;
-    }
-
-    public static void setCommandManager(CommandManager commandManager) {
-        RectangularField.commandManager = commandManager;
     }
 }

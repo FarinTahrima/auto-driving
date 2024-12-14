@@ -14,7 +14,7 @@ public class OccupiedPosition {
 
         // when new cars are added to the field, it will add the initial position to the occupied position map
         if (previousPositionPlot == null) {
-            List<Car> cars = new ArrayList<Car>();
+            List<Car> cars = new ArrayList<>();
             cars.add(car);
             occupiedPositions.put(newPositionPlot, cars);
         } else {
@@ -22,7 +22,7 @@ public class OccupiedPosition {
 
             // if position occupied it will add the car to the list with parked cars already added
             // else it will be a new entry as that position wasn't occupied earlier
-            List<Car> occupiedCarsAtNewPosition = positionIsOccupied ? occupiedPositions.get(newPositionPlot) : new ArrayList<Car>();
+            List<Car> occupiedCarsAtNewPosition = positionIsOccupied ? occupiedPositions.get(newPositionPlot) : new ArrayList<>();
             occupiedCarsAtNewPosition.add(car);
             occupiedPositions.put(newPositionPlot, occupiedCarsAtNewPosition);
 
@@ -62,9 +62,5 @@ public class OccupiedPosition {
 
     public int getCollidedCarsCount() {
         return collidedCarsCount;
-    }
-
-    public void setCollidedCarsCount(int collidedCarsCount) {
-        this.collidedCarsCount = collidedCarsCount;
     }
 }
