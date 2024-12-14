@@ -7,7 +7,6 @@ import com.auto_driving.model.RectangularField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.auto_driving.model.RectangularField.fieldManager;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarNameValidatorTest {
@@ -22,8 +21,8 @@ public class CarNameValidatorTest {
         Car ferrariCar = new Car("Ferrari", null, null);
         Car toyotaCar = new Car("Toyota", null, null);
 
-        fieldManager.addCarToField(ferrariCar);
-        fieldManager.addCarToField(toyotaCar);
+        RectangularField.getFieldManager().addCarToField(ferrariCar);
+        RectangularField.getFieldManager().addCarToField(toyotaCar);
     }
 
     // when valid name is set

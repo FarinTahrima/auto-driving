@@ -9,6 +9,7 @@ public class PostSimulationState extends OptionState {
     }
 
     public MenuState getNextState() {
+        // change menu state based the option selected
         return switch (getOptionSelected()) {
             case 1 -> new StartState();
             case 2 -> new EndState();

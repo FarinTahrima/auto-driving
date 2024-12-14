@@ -1,9 +1,8 @@
 package com.auto_driving.validator;
 
 import com.auto_driving.exception.*;
+import com.auto_driving.model.FieldManager;
 import com.auto_driving.model.RectangularField;
-
-import static com.auto_driving.model.RectangularField.fieldManager;
 
 public class CarPositionValidator implements Validator {
 
@@ -11,6 +10,7 @@ public class CarPositionValidator implements Validator {
     public void validate(String input) throws InvalidArgumentsLengthException, InvalidValueException, InvalidDirectionException {
         int x, y;
         String[] position = input.split(" ");
+        FieldManager fieldManager = RectangularField.getFieldManager();
 
         // Invalid case 1: invalid no. of arguments
         if (position.length != 3) {

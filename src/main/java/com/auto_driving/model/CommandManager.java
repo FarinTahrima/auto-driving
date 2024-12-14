@@ -3,7 +3,6 @@ package com.auto_driving.model;
 import java.util.List;
 
 import static com.auto_driving.AutoDrivingConsole.getPositionXandYPlots;
-import static com.auto_driving.model.RectangularField.fieldManager;
 
 public class CommandManager {
     private int maxCommandCount = 0;
@@ -38,7 +37,8 @@ public class CommandManager {
                 break;
             case 'F':
                 newPosition = moveForward(previousPosition);
-                fieldManager.updateOccupiedPosition(car, previousPositionPlot, getPositionXandYPlots(newPosition));
+                // whenever move forward position x or y will change hence need to update the occupied position
+                RectangularField.getFieldManager().updateOccupiedPosition(car, previousPositionPlot, getPositionXandYPlots(newPosition));
                 break;
             default:
                 break;
@@ -47,6 +47,7 @@ public class CommandManager {
     }
 
     public CarPosition rotateRight(CarPosition position) {
+        // right means clockwise, so N -> E -> S -> W
         char direction = position.getDirection();
         switch (direction) {
             case 'N':
@@ -68,6 +69,7 @@ public class CommandManager {
     }
 
     public CarPosition rotateLeft(CarPosition position) {
+        // left means anti-clockwise, so N -> W -> S -> E
         char direction = position.getDirection();
         switch (direction) {
             case 'N':

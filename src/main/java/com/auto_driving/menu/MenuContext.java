@@ -24,35 +24,40 @@ public class MenuContext {
         String stateName = currentState.getClass().getSimpleName();
         switch(stateName) {
             case "StartState":
+                // when start over option is selected, need to reset the field instance
                 if (RectangularField.getInstance() != null) {
                     RectangularField.resetInstance();
                 }
+                // Start -> Setup the field
                 setCurrentState(new RectangularFieldSetupState());
                 break;
             case "RectangularFieldSetupState", "AddCarState":
+                // Setup field -> Options to choose for field
+                // When car is already added -> Options to choose for field (whether to run more or run simulation)
                 setCurrentState(new FieldOptionState());
                 break;
             case "FieldOptionState":
+                // Option selected -> change state based on the selected option
                 FieldOptionState fieldOptionState = (FieldOptionState) currentState;
                 setCurrentState(fieldOptionState.getNextState());
                 break;
             case "RunSimulationState":
+                // when run simulation -> post simulation
                 setCurrentState(new PostSimulationState());
                 break;
             case "PostSimulationState":
+                // Post simulation -> option to choose whether to start over simulation or end
                 PostSimulationState postSimulationState = (PostSimulationState) currentState;
                 setCurrentState(postSimulationState.getNextState());
                 break;
-            case "EndState":
-                stateName = "";
-                setCurrentState(null);
-                break;
             default:
+                // last step, no more new state
                 stateName = "";
                 setCurrentState(null);
                 break;
-
         }
+
+        // execute request whenever the current state is not null
         if (!stateName.isEmpty()) {
             request();
         }

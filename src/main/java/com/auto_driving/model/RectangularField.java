@@ -5,8 +5,8 @@ public class RectangularField {
     private static int width;
     private static int height;
 
-    public static FieldManager fieldManager = new FieldManager(); // to manage the cars on the field
-    public static CommandManager commandManager = new CommandManager(); // to manage the commands of a car
+    private static FieldManager fieldManager = new FieldManager(); // to manage the cars on the field
+    private static CommandManager commandManager = new CommandManager(); // to manage the commands of a car
 
     public RectangularField(int width, int height) {
         RectangularField.width = width;
@@ -44,5 +44,21 @@ public class RectangularField {
 
     public void setWidth(int width) {
         RectangularField.width = width;
+    }
+
+    public static FieldManager getFieldManager() {
+        return fieldManager;
+    }
+
+    public static void setFieldManager(FieldManager fieldManager) {
+        RectangularField.fieldManager = fieldManager;
+    }
+
+    public static CommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public static void setCommandManager(CommandManager commandManager) {
+        RectangularField.commandManager = commandManager;
     }
 }

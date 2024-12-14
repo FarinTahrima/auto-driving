@@ -1,13 +1,14 @@
 package com.auto_driving.validator;
 
 import com.auto_driving.exception.*;
-
-import static com.auto_driving.model.RectangularField.fieldManager;
+import com.auto_driving.model.FieldManager;
+import com.auto_driving.model.RectangularField;
 
 public class CarNameValidator implements  Validator {
     @Override
     public void validate(String input) throws InvalidNameException, NameAlreadyExistsException {
         String name = input.trim();
+        FieldManager fieldManager = RectangularField.getFieldManager();
 
         // Invalid case 1: empty spaces only
         if (name.isEmpty()) {

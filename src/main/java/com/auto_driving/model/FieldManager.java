@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.auto_driving.AutoDrivingConsole.getPositionXandYPlots;
-import static com.auto_driving.model.RectangularField.commandManager;
 
 public class FieldManager {
     private List<Car> cars = new ArrayList<Car>();
@@ -33,8 +32,9 @@ public class FieldManager {
         cars.add(car);
 
         // update the max command count to determine the no. of max iterations during simulation
-        commandManager.checkCommandCount(car.getCommands());
+        RectangularField.getCommandManager().checkCommandCount(car.getCommands());
 
+        // update the position that has been occupied
         occupiedPosition.updateOccupiedPosition(car, null, getPositionXandYPlots(car.getPosition()));
     }
 
@@ -49,14 +49,18 @@ public class FieldManager {
                     .map(String::valueOf) // Convert Character to String
                     .collect(Collectors.joining());
 
+            // for pre simulation the name, position x and y, direction and commands will be displayed for car
             if (!isPostSimulation) {
                 String carInfo = String.format("- %s, %s %s, %s", nameStr, positionStr, directionStr, commandsStr);
                 System.out.println(carInfo);
             }
 
+            // for post simulation
+            // if the car collides, it will print the name and reason
+            // else, it will print name, the updated position x and y and direction
             if (isPostSimulation) {
                 String simulationResult = car.getCollisionIndicator().isCollided()
-                        ? String.format("-%s, %s", nameStr, car.getCollisionIndicator().getReason()) // print the reason behind the collision
+                        ? String.format("- %s, %s", nameStr, car.getCollisionIndicator().getReason()) // print the reason behind the collision
                         : String.format("- %s, %s %s", nameStr, positionStr, directionStr); // print the usual car info when not collided
                 System.out.println(simulationResult);
             }

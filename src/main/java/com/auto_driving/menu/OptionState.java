@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.auto_driving.AutoDrivingConsole.askForInput;
-import static com.auto_driving.AutoDrivingConsole.validateInput;
+import static com.auto_driving.AutoDrivingConsole.*;
 
 public abstract class OptionState implements MenuState {
 
-    boolean isOptionValid = false;
     private int optionSelected;
     private List<String> options = new ArrayList<>();
 
@@ -22,16 +20,14 @@ public abstract class OptionState implements MenuState {
 
     @Override
     public void executeRequest() {
-        while (!isOptionValid) {
-            String optionsStr =  IntStream.range(0, options.size())
-                    .mapToObj(i -> String.format("[%d] %s\n", i + 1, options.get(i)))
-                    .collect(Collectors.joining());
-            String input = askForInput("\nPlease choose from the following options:\n" + optionsStr);
-            isOptionValid = validateInput(new OptionsValidator(options), input);
-            if (isOptionValid) {
-                setOptionSelected(Integer.parseInt(input));
-            }
-        }
+        // display the options to choose from
+        String optionsStr =  IntStream.range(0, options.size())
+                .mapToObj(i -> String.format("[%d] %s\n", i + 1, options.get(i)))
+                .collect(Collectors.joining());
+        String message = "\nPlease choose from the following options:\n" + optionsStr;
+
+        // determine the selected option
+        setOptionSelected(Integer.parseInt(getInput(message, new OptionsValidator(options))));
     }
 
     public int getOptionSelected() {

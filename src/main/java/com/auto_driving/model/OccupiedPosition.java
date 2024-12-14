@@ -1,32 +1,33 @@
 package com.auto_driving.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.auto_driving.model.RectangularField.commandManager;
 
 public class OccupiedPosition {
     private Map<String, List<Car>> occupiedPositions = new HashMap<>();
     private int collidedCarsCount = 0;
 
     public void updateOccupiedPosition(Car car, String previousPositionPlot, String newPositionPlot) {
-        // when new cars are added to the field, assumption is when new car is added it cannot take an occupied position
+
+        // if the previous and new position are the same -> no need to update
+        if (Objects.equals(previousPositionPlot, newPositionPlot)) return;
+
+        // when new cars are added to the field, it will add the initial position to the occupied position map
         if (previousPositionPlot == null) {
             List<Car> cars = new ArrayList<Car>();
             cars.add(car);
             occupiedPositions.put(newPositionPlot, cars);
         } else {
-            boolean willCarCollide = occupiedPositions.containsKey(newPositionPlot);
+            boolean positionIsOccupied = occupiedPositions.containsKey(newPositionPlot);
 
-            List<Car> occupiedCarsAtNewPosition = willCarCollide ? occupiedPositions.get(newPositionPlot) : new ArrayList<Car>();
+            // if position occupied it will add the car to the list with parked cars already added
+            // else it will be a new entry as that position wasn't occupied earlier
+            List<Car> occupiedCarsAtNewPosition = positionIsOccupied ? occupiedPositions.get(newPositionPlot) : new ArrayList<Car>();
             occupiedCarsAtNewPosition.add(car);
             occupiedPositions.put(newPositionPlot, occupiedCarsAtNewPosition);
 
-            // if the plot is found in occupied positions, meaning the car will crash
-            if (willCarCollide) {
+            // if the position is already occupied -> meaning the car will crash as multiple cars at same position
+            if (positionIsOccupied) {
                 updateCarCollision(occupiedCarsAtNewPosition, newPositionPlot);
             }
 
@@ -35,10 +36,12 @@ public class OccupiedPosition {
         }
     }
 
-    // crash update
+    // update to the affected cars of the position that their car crashed
     public void updateCarCollision(List<Car> affectedCars, String positionPlot) {
         for(Car car: affectedCars) {
             CollisionIndicator collisionIndicator = car.getCollisionIndicator();
+            // if the other car has not collided yet means it will now collide due to both car being at the same position
+            // if the other car already collided before thew new car comes in, means it had already collided with other cars in previous step
             if (!collisionIndicator.isCollided()) {
                 collisionIndicator.setCollided(true);
                 collisionIndicator.setReason(getCollisionReason(car, affectedCars, positionPlot));
@@ -53,7 +56,8 @@ public class OccupiedPosition {
                 .map(Car::getName)
                 .filter(name -> !name.equals(carName))
                 .collect(Collectors.joining());
-        return String.format("collides with %s at %s at step %d", otherCars, positionPlot, commandManager.getStepNumber());
+        // reason consists of the other cars the car crashed with, at which plot position and which step it collided
+        return String.format("collides with %s at %s at step %d", otherCars, positionPlot, RectangularField.getCommandManager().getStepNumber());
     }
 
     public int getCollidedCarsCount() {

@@ -7,7 +7,6 @@ import com.auto_driving.model.RectangularField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.auto_driving.model.RectangularField.fieldManager;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarPositionValidatorTest {
@@ -24,11 +23,11 @@ public class CarPositionValidatorTest {
     @BeforeEach
     public void setupRectangularField() {
         RectangularField.getInstance(10,10);
-        CarPosition positionForCar = new CarPosition(9, 9, 'S');
+        CarPosition positionForCar = new CarPosition("9 9 S");
 
         // can ignore the commands for this case as of now
         Car car = new Car("Random", positionForCar, null);
-        fieldManager.addCarToField(car);
+        RectangularField.getFieldManager().addCarToField(car);
     }
     // when valid input for position
     @Test

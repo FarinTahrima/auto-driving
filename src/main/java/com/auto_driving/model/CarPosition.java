@@ -5,10 +5,11 @@ public class CarPosition {
     private int y;
     private char direction;
 
-    public CarPosition(int x, int y, char direction) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
+    public CarPosition(String positionStr) {
+        String[] position = positionStr.split(" ");
+        this.x = Integer.parseInt(position[0]);
+        this.y = Integer.parseInt(position[1]);;
+        this.direction = position[2].toUpperCase().toCharArray()[0];
     }
 
     public int getX() {
