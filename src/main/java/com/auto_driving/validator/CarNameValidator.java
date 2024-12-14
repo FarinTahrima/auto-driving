@@ -1,7 +1,8 @@
 package com.auto_driving.validator;
 
 import com.auto_driving.exception.*;
-import com.auto_driving.model.RectangularField;
+
+import static com.auto_driving.model.RectangularField.fieldManager;
 
 public class CarNameValidator implements  Validator {
     @Override
@@ -14,7 +15,7 @@ public class CarNameValidator implements  Validator {
         }
 
         // Invalid case 2: name is already taken by another car
-        boolean doesNameAlreadyExist = RectangularField.getCars()
+        boolean doesNameAlreadyExist = fieldManager.getCars()
                 .stream()
                 .anyMatch(car -> name.equals(car.getName()));
         if (doesNameAlreadyExist) {

@@ -2,7 +2,6 @@ package com.auto_driving.menu;
 
 import com.auto_driving.model.Car;
 import com.auto_driving.model.CarPosition;
-import com.auto_driving.model.RectangularField;
 import com.auto_driving.validator.CarCommandValidator;
 import com.auto_driving.validator.CarNameValidator;
 import com.auto_driving.validator.CarPositionValidator;
@@ -12,6 +11,7 @@ import java.util.List;
 
 import static com.auto_driving.AutoDrivingConsole.askForInput;
 import static com.auto_driving.AutoDrivingConsole.validateInput;
+import static com.auto_driving.model.RectangularField.fieldManager;
 
 public class AddCarState implements MenuState {
     boolean isNameValid = false;
@@ -62,7 +62,7 @@ public class AddCarState implements MenuState {
         }
 
         Car car = new Car(carName, carPosition, carCommands);
-        RectangularField.addCarToField(car);
-        RectangularField.printListOfCars(false);
+        fieldManager.addCarToField(car);
+        fieldManager.printListOfCars(false);
     }
 }

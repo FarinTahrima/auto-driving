@@ -3,6 +3,8 @@ package com.auto_driving.validator;
 import com.auto_driving.exception.*;
 import com.auto_driving.model.RectangularField;
 
+import static com.auto_driving.model.RectangularField.fieldManager;
+
 public class CarPositionValidator implements Validator {
 
     @Override
@@ -29,7 +31,7 @@ public class CarPositionValidator implements Validator {
         }
 
         // Invalid case 5: x and y position is already taken by another car
-        boolean isPositionAlreadyTaken = RectangularField.getCars()
+        boolean isPositionAlreadyTaken = fieldManager.getCars()
                 .stream()
                 .anyMatch(car -> x == car.getPosition().getX()
                     && y == car.getPosition().getY());

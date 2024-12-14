@@ -2,6 +2,8 @@ package com.auto_driving;
 
 import com.auto_driving.menu.*;
 import com.auto_driving.model.CarPosition;
+import com.auto_driving.model.CommandManager;
+import com.auto_driving.model.FieldManager;
 import com.auto_driving.validator.Validator;
 
 import java.util.Scanner;
@@ -11,6 +13,7 @@ public class AutoDrivingConsole {
     public static void main(String[] args) {
         // Create context
         MenuContext menuContext = new MenuContext();
+
         menuContext.request();
     }
 
