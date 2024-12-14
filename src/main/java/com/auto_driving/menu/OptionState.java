@@ -2,7 +2,6 @@ package com.auto_driving.menu;
 
 import com.auto_driving.validator.OptionsValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
