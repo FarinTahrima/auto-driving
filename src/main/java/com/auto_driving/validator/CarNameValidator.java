@@ -4,7 +4,7 @@ import com.auto_driving.exception.*;
 import com.auto_driving.model.FieldManager;
 import com.auto_driving.model.RectangularField;
 
-public class CarNameValidator implements  Validator {
+public class CarNameValidator implements InputValidator {
     @Override
     public void validate(String input) throws InvalidNameException, NameAlreadyExistsException {
         String name = input.trim();

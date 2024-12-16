@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.auto_driving.AutoDrivingConsole.convertCommandStrToListOfChars;
+import static com.auto_driving.utils.Utils.convertCommandStrToListOfChars;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CarSimulationTest {
     @BeforeEach

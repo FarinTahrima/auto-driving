@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.auto_driving.AutoDrivingConsole.*;
+import static com.auto_driving.utils.Utils.getInput;
 
 public abstract class OptionState implements MenuState {
 
@@ -25,7 +25,7 @@ public abstract class OptionState implements MenuState {
                 .collect(Collectors.joining());
         String message = "\nPlease choose from the following options:\n" + optionsStr;
 
-        // determine the selected option
+        // set the selected option
         setOptionSelected(Integer.parseInt(getInput(message, new OptionsValidator(options))));
     }
 

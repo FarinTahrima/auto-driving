@@ -3,7 +3,7 @@ package com.auto_driving.menu;
 import com.auto_driving.model.RectangularField;
 import com.auto_driving.validator.RectangularFieldValidator;
 
-import static com.auto_driving.AutoDrivingConsole.getInput;
+import static com.auto_driving.utils.Utils.getInput;
 
 public class RectangularFieldSetupState implements MenuState {
     private RectangularField field;
@@ -17,6 +17,11 @@ public class RectangularFieldSetupState implements MenuState {
         );
         String[] dimensions = dimensionStr.split(" ");
         field = RectangularField.getInstance(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
+    }
+
+    @Override
+    public MenuState getNextState() {
+        return new FieldOptionState();
     }
 
     public RectangularField getField() {

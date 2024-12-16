@@ -3,7 +3,7 @@ package com.auto_driving.validator;
 import com.auto_driving.exception.InvalidArgumentsLengthException;
 import com.auto_driving.exception.InvalidValueException;
 
-public class RectangularFieldValidator implements Validator {
+public class RectangularFieldValidator implements InputValidator {
     @Override
     public void validate(String input) throws InvalidArgumentsLengthException, InvalidValueException {
         String[] dimensions = input.split(" ");
@@ -14,7 +14,7 @@ public class RectangularFieldValidator implements Validator {
         }
 
         if (!dimensions[0].matches("^[1-9]\\d*$") || !dimensions[1].matches("^[1-9]\\d*$")) {
-            throw new InvalidValueException();
+            throw new InvalidValueException(1);
         }
     }
 }

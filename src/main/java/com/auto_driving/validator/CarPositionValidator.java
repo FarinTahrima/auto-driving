@@ -4,7 +4,7 @@ import com.auto_driving.exception.*;
 import com.auto_driving.model.FieldManager;
 import com.auto_driving.model.RectangularField;
 
-public class CarPositionValidator implements Validator {
+public class CarPositionValidator implements InputValidator {
 
     @Override
     public void validate(String input) throws InvalidArgumentsLengthException, InvalidValueException, InvalidDirectionException {
@@ -19,7 +19,7 @@ public class CarPositionValidator implements Validator {
 
         // Invalid case 2: x or y is not a positive numerical value
         if (!position[0].matches("^[0-9]\\d*$") || !position[1].matches("^[0-9]\\d*$")) {
-            throw new InvalidValueException();
+            throw new InvalidValueException(0);
         } else {
             x = Integer.parseInt(position[0]);
             y = Integer.parseInt(position[1]);

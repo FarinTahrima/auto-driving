@@ -6,12 +6,14 @@ public class CarPosition {
     private char direction;
 
     public CarPosition(String positionStr) {
+        // extract position x, y and direction from the position string
         String[] position = positionStr.split(" ");
         this.x = Integer.parseInt(position[0]);
         this.y = Integer.parseInt(position[1]);
         this.direction = position[2].toUpperCase().toCharArray()[0];
     }
 
+    // getters and setters
     public int getX() {
         return x;
     }

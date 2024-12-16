@@ -6,4 +6,9 @@ public class EndState implements MenuState{
         // ending message
         System.out.println("Thank you for running the simulation. Goodbye!");
     }
+
+    @Override
+    public MenuState getNextState() {
+        return null;
+    }
 }

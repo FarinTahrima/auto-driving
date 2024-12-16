@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.auto_driving.AutoDrivingConsole.convertCommandStrToListOfChars;
+import static com.auto_driving.utils.Utils.convertCommandStrToListOfChars;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarPositionValidatorTest {
     private final static String INVALID_NO_OF_ARGUMENTS = "Invalid Number of Arguments. Please enter 3 values separated by a space.";
-    private final static String INVALID_VALUE = "Please input numerical values that are more than 0.";
+    private final static String INVALID_VALUE = "Please input numerical values that are equal or more than 0.";
     private final static String INVALID_DIRECTION = "Invalid direction. Please input N, E, S or W.";
     private final static String POSITION_OUTSIDE_BOUNDARY = """
             Your position is outside field boundary.
@@ -26,11 +26,11 @@ public class CarPositionValidatorTest {
     @BeforeEach
     public void setupRectangularField() {
         RectangularField.getInstance(10,10);
-        CarPosition carPosition = new CarPosition("9 9 S");
 
-        // can ignore the commands for this case as of now
+        CarPosition carPosition = new CarPosition("9 9 S");
         List<Character> carCommands = convertCommandStrToListOfChars("LRF");
         Car car = new Car("Random", carPosition, carCommands);
+
         RectangularField.getFieldManager().addCarToField(car);
     }
     // when valid input for position
@@ -143,7 +143,7 @@ public class CarPositionValidatorTest {
         assertEquals(POSITION_OUTSIDE_BOUNDARY, exception.getMessage());
     }
 
-    // when position is taken by another car already by default
+    // when initial position is taken by another car
     @Test
     public void testPositionIsAlreadyTaken() {
         CarPositionValidator validator = new CarPositionValidator();

@@ -2,8 +2,9 @@ package com.auto_driving.model;
 
 import java.util.List;
 
-import static com.auto_driving.AutoDrivingConsole.getPositionXandYPlots;
+import static com.auto_driving.utils.Utils.getPositionXandYPlots;
 
+// to manage commands
 public class CommandManager {
     private int maxCommandCount = 0;
     private int stepNumber = 1;
@@ -94,7 +95,7 @@ public class CommandManager {
         char direction = position.getDirection();
         switch (direction) {
             case 'N':
-                // the max pos y can be field height - 1, pos y cant be equal(as pos y starts from 0, min height is 1) or more than field height
+                // the max pos y can be field height - 1
                 // move forward to north means upwards, hence increment y by 1
                 if (position.getY() < RectangularField.getHeight() - 1) {
                     position.setY(position.getY() + 1);
@@ -108,7 +109,7 @@ public class CommandManager {
                 }
                 break;
             case 'E':
-                // the max pos x can be field width - 1, pos x cant be equal(as pos x starts from 0, min width is 1) or more than field width
+                // the max pos x can be field width - 1
                 // move forward to east means right, hence increment x by 1
                 if (position.getX() < RectangularField.getWidth() - 1) {
                     position.setX(position.getX() + 1);

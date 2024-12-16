@@ -2,7 +2,7 @@ package com.auto_driving.validator;
 
 import com.auto_driving.exception.*;
 
-public class CarCommandValidator implements  Validator {
+public class CarCommandValidator implements InputValidator {
 
     @Override
     public void validate(String input) throws InvalidCommandException {

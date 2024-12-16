@@ -12,8 +12,8 @@ public class CarMovementTest {
     @BeforeEach
     public void setup() {
         RectangularField.getInstance(10,10);
-
     }
+
     // rotate left
     @Test
     public void testRotateLeftFromNtoW() {

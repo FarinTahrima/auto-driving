@@ -8,10 +8,9 @@ import com.auto_driving.model.RectangularField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.auto_driving.AutoDrivingConsole.convertCommandStrToListOfChars;
+import static com.auto_driving.utils.Utils.convertCommandStrToListOfChars;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarNameValidatorTest {
@@ -23,13 +22,13 @@ public class CarNameValidatorTest {
         RectangularField.getInstance(10,10);
 
         CarPosition ferrariPosition = new CarPosition("1 2 N");
-        CarPosition toyotaPosition = new CarPosition("7 8 W");
         List<Character> ferrariCommands = convertCommandStrToListOfChars("FFRFFFFRRL");
-        List<Character> toyotaCommands = convertCommandStrToListOfChars("FFLFFFFFFF");
         Car ferrariCar = new Car("Ferrari", ferrariPosition, ferrariCommands);
-        Car toyotaCar = new Car("Toyota", toyotaPosition, toyotaCommands);
-
         RectangularField.getFieldManager().addCarToField(ferrariCar);
+
+        CarPosition toyotaPosition = new CarPosition("7 8 W");
+        List<Character> toyotaCommands = convertCommandStrToListOfChars("FFLFFFFFFF");
+        Car toyotaCar = new Car("Toyota", toyotaPosition, toyotaCommands);
         RectangularField.getFieldManager().addCarToField(toyotaCar);
     }
 

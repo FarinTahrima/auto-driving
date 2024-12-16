@@ -1,5 +1,5 @@
 package com.auto_driving.validator;
 
-public interface Validator {
+public interface InputValidator {
     void validate(String input);
 }

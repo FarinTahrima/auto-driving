@@ -1,8 +1,6 @@
-package com.auto_driving;
+package com.auto_driving.validator;
 
-import com.auto_driving.exception.InvalidNameException;
 import com.auto_driving.exception.OutOfSpaceException;
-import com.auto_driving.menu.AddCarState;
 import com.auto_driving.model.Car;
 import com.auto_driving.model.CarPosition;
 import com.auto_driving.model.RectangularField;
@@ -12,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.auto_driving.AutoDrivingConsole.convertCommandStrToListOfChars;
+import static com.auto_driving.utils.Utils.convertCommandStrToListOfChars;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FieldSpaceAvailabilityTest {
+public class FieldSpaceAvailabilityValidatorTest {
     private final static String OUT_OF_SPACE = "The field is fully parked. The max capacity is 2.";
 
     @BeforeEach
@@ -30,7 +28,8 @@ public class FieldSpaceAvailabilityTest {
 
     @Test
     public void spaceAvailableAsNoCarAdded() {
-       assertTrue(RectangularField.getFieldManager().checkAvailability());
+        FieldAvailabilityValidator validator = new FieldAvailabilityValidator();
+        assertDoesNotThrow(validator::validate);
     }
 
     @Test
@@ -41,7 +40,8 @@ public class FieldSpaceAvailabilityTest {
 
         RectangularField.getFieldManager().addCarToField(carA);
 
-        assertTrue(RectangularField.getFieldManager().checkAvailability());
+        FieldAvailabilityValidator validator = new FieldAvailabilityValidator();
+        assertDoesNotThrow(validator::validate);
     }
 
     @Test
@@ -57,6 +57,8 @@ public class FieldSpaceAvailabilityTest {
         RectangularField.getFieldManager().addCarToField(carA);
         RectangularField.getFieldManager().addCarToField(carB);
 
-        assertFalse(RectangularField.getFieldManager().checkAvailability());
+        FieldAvailabilityValidator validator = new FieldAvailabilityValidator();
+        OutOfSpaceException exception = assertThrows(OutOfSpaceException.class, validator::validate);
+        assertEquals(OUT_OF_SPACE, exception.getMessage());
     }
 }

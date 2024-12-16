@@ -8,24 +8,25 @@ import com.auto_driving.model.RectangularField;
 import com.auto_driving.validator.CarCommandValidator;
 import com.auto_driving.validator.CarNameValidator;
 import com.auto_driving.validator.CarPositionValidator;
+import com.auto_driving.validator.FieldAvailabilityValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.auto_driving.AutoDrivingConsole.*;
+import static com.auto_driving.utils.Utils.convertCommandStrToListOfChars;
+import static com.auto_driving.utils.Utils.getInput;
 
 public class AddCarState implements MenuState  {
 
+    // retrieve the required managers from the rectangular field instance
     FieldManager fieldManager = RectangularField.getFieldManager();
 
     @Override
-    public void executeRequest() throws OutOfSpaceException {
+    public void executeRequest() {
 
-        // check availability
         try {
-            if (!fieldManager.checkAvailability()) {
-                throw new OutOfSpaceException(RectangularField.getFieldManager().getMaxCapacity());
-            }
+            FieldAvailabilityValidator validator = new FieldAvailabilityValidator();
+            validator.validate(); // first check if the field is available for parking cars
+
             // car name
             String carName = getInput("Please enter the name of the car", new CarNameValidator());
 
@@ -41,7 +42,6 @@ public class AddCarState implements MenuState  {
                     String.format("Please enter the commands for car %s:", carName),
                     new CarCommandValidator()
             );
-
             List<Character> carCommands = convertCommandStrToListOfChars(commandStr);
 
             Car car = new Car(carName, carPosition, carCommands);
@@ -57,5 +57,10 @@ public class AddCarState implements MenuState  {
                 System.out.println("- " + carInfo);
             }
         }
+    }
+
+    @Override
+    public MenuState getNextState() {
+        return new FieldOptionState();
     }
 }

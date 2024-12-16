@@ -5,7 +5,7 @@ import com.auto_driving.exception.InvalidOptionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionsValidator implements Validator{
+public class OptionsValidator implements InputValidator {
 
     List<String> options = new ArrayList<>();
 

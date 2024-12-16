@@ -14,6 +14,7 @@ public class Car {
         this.commands = commands;
     }
 
+    // getters and setters
     public String getName() {
         return name;
     }
