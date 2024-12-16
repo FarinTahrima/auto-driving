@@ -9,6 +9,7 @@ import static com.auto_driving.AutoDrivingConsole.getPositionXandYPlots;
 public class FieldManager {
     private List<Car> cars = new ArrayList<>();
     private OccupiedPosition occupiedPosition = new OccupiedPosition();
+    private int maxCapacity = 0;
 
     // getters
     public List<Car> getCars() {
@@ -21,6 +22,14 @@ public class FieldManager {
 
     public void updateOccupiedPosition(Car car, String previousPositionPlot, String newPositionPlot) {
         occupiedPosition.updateOccupiedPosition(car, previousPositionPlot, newPositionPlot);
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 
     // other methods
@@ -57,6 +66,11 @@ public class FieldManager {
             }
         }
         return result;
+    }
+
+    public boolean checkAvailability() {
+        // if the number of cars parked is less than capacity -> means available
+        return cars.size() < maxCapacity;
     }
 }
 

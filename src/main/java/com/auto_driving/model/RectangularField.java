@@ -11,6 +11,7 @@ public class RectangularField {
     public RectangularField(int width, int height) {
         RectangularField.width = width;
         RectangularField.height = height;
+        RectangularField.fieldManager.setMaxCapacity(width * height);
         System.out.printf("You have created a field of %d x %d.\n", width, height);
     }
 

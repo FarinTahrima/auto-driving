@@ -18,7 +18,7 @@ public class CarPositionValidator implements Validator {
         }
 
         // Invalid case 2: x or y is not a positive numerical value
-        if (!position[0].matches("^[1-9]\\d*$") || !position[1].matches("^[1-9]\\d*$")) {
+        if (!position[0].matches("^[0-9]\\d*$") || !position[1].matches("^[0-9]\\d*$")) {
             throw new InvalidValueException();
         } else {
             x = Integer.parseInt(position[0]);

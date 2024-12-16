@@ -1,5 +1,6 @@
 package com.auto_driving.menu;
 
+import com.auto_driving.exception.OutOfSpaceException;
 import com.auto_driving.model.Car;
 import com.auto_driving.model.CarPosition;
 import com.auto_driving.model.FieldManager;
@@ -13,41 +14,48 @@ import java.util.List;
 
 import static com.auto_driving.AutoDrivingConsole.*;
 
-public class AddCarState implements MenuState {
+public class AddCarState implements MenuState  {
 
     FieldManager fieldManager = RectangularField.getFieldManager();
 
     @Override
-    public void executeRequest() {
+    public void executeRequest() throws OutOfSpaceException {
 
-        // car name
-        String carName = getInput("Please enter the name of the car", new CarNameValidator());
+        // check availability
+        try {
+            if (!fieldManager.checkAvailability()) {
+                throw new OutOfSpaceException(RectangularField.getFieldManager().getMaxCapacity());
+            }
+            // car name
+            String carName = getInput("Please enter the name of the car", new CarNameValidator());
 
-        // car position
-        String positionStr = getInput(
-                String.format("Please enter initial position of car %s in x y Direction format:", carName),
-                new CarPositionValidator()
-        );
-        CarPosition carPosition = new CarPosition(positionStr);
+            // car position
+            String positionStr = getInput(
+                    String.format("Please enter initial position of car %s in x y Direction format:", carName),
+                    new CarPositionValidator()
+            );
+            CarPosition carPosition = new CarPosition(positionStr);
 
-        // car commands
-        String commandStr = getInput(
-                String.format("Please enter the commands for car %s:", carName),
-                new CarCommandValidator()
-        );
+            // car commands
+            String commandStr = getInput(
+                    String.format("Please enter the commands for car %s:", carName),
+                    new CarCommandValidator()
+            );
 
-        List<Character> carCommands = convertCommandStrToListOfChars(commandStr);
+            List<Character> carCommands = convertCommandStrToListOfChars(commandStr);
 
-        Car car = new Car(carName, carPosition, carCommands);
+            Car car = new Car(carName, carPosition, carCommands);
 
-        // add car to the field
-        fieldManager.addCarToField(car);
-
-        // print the list of cars added
-        System.out.println("Your current list of cars are:");
-        for(String carInfo: fieldManager.getListOfCarsInfo(false)) {
-            System.out.println("- " + carInfo);
+            // add car to the field
+            fieldManager.addCarToField(car);
+        } catch (OutOfSpaceException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            // print the list of cars added
+            System.out.println("Your current list of cars are:");
+            for(String carInfo: fieldManager.getListOfCarsInfo(false)) {
+                System.out.println("- " + carInfo);
+            }
         }
-
     }
 }

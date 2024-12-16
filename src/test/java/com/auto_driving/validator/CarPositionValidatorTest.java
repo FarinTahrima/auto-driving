@@ -77,28 +77,6 @@ public class CarPositionValidatorTest {
         assertEquals(INVALID_VALUE, exception.getMessage());
     }
 
-    // when position x or y set is non-positive or zero
-    @Test
-    public void testZeroX() {
-        CarPositionValidator validator = new CarPositionValidator();
-        InvalidValueException exception = assertThrows(InvalidValueException.class, () -> validator.validate("0 5 E"));
-        assertEquals(INVALID_VALUE, exception.getMessage());
-    }
-
-    @Test
-    public void testZeroY() {
-        CarPositionValidator validator = new CarPositionValidator();
-        InvalidValueException exception = assertThrows(InvalidValueException.class, () -> validator.validate("3 0 E"));
-        assertEquals(INVALID_VALUE, exception.getMessage());
-    }
-
-    @Test
-    public void testZeroXAndY() {
-        CarPositionValidator validator = new CarPositionValidator();
-        InvalidValueException exception = assertThrows(InvalidValueException.class, () -> validator.validate("0 0 S"));
-        assertEquals(INVALID_VALUE, exception.getMessage());
-    }
-
     @Test
     public void testNegativeX() {
         CarPositionValidator validator = new CarPositionValidator();
