@@ -31,7 +31,6 @@ public class CarSimulationTest {
     // when y = 0, direction = S, and next command to execute is F
     // when y = field height - 1, direction = N, and next command to execute is F
 
-
     // single car
     @Test
     public void singleCarWithMultipleCommand() {
