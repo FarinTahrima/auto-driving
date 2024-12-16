@@ -8,7 +8,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.auto_driving.AutoDrivingConsole.convertCommandStrToListOfChars;
@@ -209,7 +208,7 @@ public class CarSimulationTest {
     }
 
     @Test
-    public void multipleCarsWithThreeCarsCollidingAtSameIteration() {
+    public void multipleCarsWithThreeCarsCollidingAtDifferentIteration() {
         // 4 cars, with 3 colliding at a certain step
         CarPosition carAPosition = new CarPosition("1 2 E");
         List<Character> carACommands = convertCommandStrToListOfChars("RLF");
@@ -239,6 +238,39 @@ public class CarSimulationTest {
         List<String> actualResult = RectangularField.getFieldManager().getListOfCarsInfo(true);
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void multipleCarsWithThreeCarsCollidingAtSameIteration() {
+        // 4 cars, with 3 colliding at a certain step
+        CarPosition carAPosition = new CarPosition("1 2 E");
+        List<Character> carACommands = convertCommandStrToListOfChars("RLF");
+        Car carA = new Car("A", carAPosition, carACommands);
+
+        CarPosition carBPosition = new CarPosition("8 9 E");
+        List<Character> carBCommands = convertCommandStrToListOfChars("RL");
+        Car carB = new Car("B", carBPosition, carBCommands);
+
+        CarPosition carCPosition = new CarPosition("7 9 S");
+        List<Character> carCCommands = convertCommandStrToListOfChars("LF");
+        Car carC = new Car("C", carCPosition, carCCommands);
+
+        CarPosition carDPosition = new CarPosition("9 9 N");
+        List<Character> carDCommands = convertCommandStrToListOfChars("LF");
+        Car carD = new Car("D", carDPosition, carDCommands);
+
+        RectangularField.getFieldManager().addCarToField(carA);
+        RectangularField.getFieldManager().addCarToField(carB);
+        RectangularField.getFieldManager().addCarToField(carC);
+        RectangularField.getFieldManager().addCarToField(carD);
+
+        RunSimulationState simulationState = new RunSimulationState();
+        simulationState.startSimulation();
+
+        List<String> expectedResult = List.of("A, (2,2) E", "B, collides with C at (8,9) at step 2", "C, collides with B at (8,9) at step 2", "D, collides with B,C at (8,9) at step 2");
+        List<String> actualResult = RectangularField.getFieldManager().getListOfCarsInfo(true);
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     public void multipleCarsWithTwoDifferentCarsCollidingAtDifferentTimes() {
