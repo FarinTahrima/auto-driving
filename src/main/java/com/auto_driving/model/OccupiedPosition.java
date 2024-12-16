@@ -55,7 +55,7 @@ public class OccupiedPosition {
         String otherCars =  affectedCars.stream()
                 .map(Car::getName)
                 .filter(name -> !name.equals(carName))
-                .collect(Collectors.joining());
+                .collect(Collectors.joining(","));
         // reason consists of the other cars the car crashed with, at which plot position and which step it collided
         return String.format("collides with %s at %s at step %d", otherCars, positionPlot, RectangularField.getCommandManager().getStepNumber());
     }

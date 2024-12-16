@@ -34,9 +34,8 @@ public class FieldManager {
         occupiedPosition.updateOccupiedPosition(car, null, getPositionXandYPlots(car.getPosition()));
     }
 
-    public void printListOfCars(boolean isPostSimulation) {
-        String listTitle = !isPostSimulation ? "\nYour current list of cars are:" : "\nAfter simulation, the result is:";
-        System.out.println(listTitle);
+    public List<String> getListOfCarsInfo(boolean isPostSimulation) {
+        List<String> result = new ArrayList<>();
         for (Car car : cars) {
             String nameStr = car.getName();
             String positionStr = getPositionXandYPlots(car.getPosition());
@@ -47,20 +46,17 @@ public class FieldManager {
 
             // for pre simulation the name, position x and y, direction and commands will be displayed for car
             if (!isPostSimulation) {
-                String carInfo = String.format("- %s, %s %s, %s", nameStr, positionStr, directionStr, commandsStr);
-                System.out.println(carInfo);
-            }
-
-            // for post simulation
-            // if the car collides, it will print the name and reason
-            // else, it will print name, the updated position x and y and direction
-            if (isPostSimulation) {
-                String simulationResult = car.getCollisionIndicator().isCollided()
-                        ? String.format("- %s, %s", nameStr, car.getCollisionIndicator().getReason()) // print the reason behind the collision
-                        : String.format("- %s, %s %s", nameStr, positionStr, directionStr); // print the usual car info when not collided
-                System.out.println(simulationResult);
+                result.add(String.format("%s, %s %s, %s", nameStr, positionStr, directionStr, commandsStr));
+            } else {
+                // for post simulation
+                // if the car collides, it will print the name and reason
+                // else, it will print name, the updated position x and y and direction
+                result.add(car.getCollisionIndicator().isCollided()
+                        ? String.format("%s, %s", nameStr, car.getCollisionIndicator().getReason()) // print the reason behind the collision
+                        : String.format("%s, %s %s", nameStr, positionStr, directionStr));// print the usual car info when not collided
             }
         }
+        return result;
     }
 }
 

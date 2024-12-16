@@ -20,8 +20,6 @@ public class AddCarState implements MenuState {
     @Override
     public void executeRequest() {
 
-        List<Character> carCommands = new ArrayList<>();
-
         // car name
         String carName = getInput("Please enter the name of the car", new CarNameValidator());
 
@@ -37,12 +35,8 @@ public class AddCarState implements MenuState {
                 String.format("Please enter the commands for car %s:", carName),
                 new CarCommandValidator()
         );
-        char[] commandArray = commandStr.toUpperCase().toCharArray();
-        for (char c : commandArray) {
-            if (c == 'F' || c == 'R' || c == 'L') {
-                carCommands.add(c);
-            }
-        }
+
+        List<Character> carCommands = convertCommandStrToListOfChars(commandStr);
 
         Car car = new Car(carName, carPosition, carCommands);
 
@@ -50,6 +44,10 @@ public class AddCarState implements MenuState {
         fieldManager.addCarToField(car);
 
         // print the list of cars added
-        fieldManager.printListOfCars(false);
+        System.out.println("Your current list of cars are:");
+        for(String carInfo: fieldManager.getListOfCarsInfo(false)) {
+            System.out.println("- " + carInfo);
+        }
+
     }
 }

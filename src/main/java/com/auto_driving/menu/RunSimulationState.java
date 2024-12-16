@@ -13,7 +13,10 @@ public class RunSimulationState implements MenuState {
     @Override
     public void executeRequest() {
         // print the list of cars with their current initial position first
-        fieldManager.printListOfCars(false);
+        System.out.println("Your current list of cars are:");
+        for(String carInfo: fieldManager.getListOfCarsInfo(false)) {
+            System.out.println("- " + carInfo);
+        }
         startSimulation();
     }
 
@@ -33,7 +36,10 @@ public class RunSimulationState implements MenuState {
             }
             commandManager.setStepNumber(commandManager.getStepNumber() + 1);
         }
-        fieldManager.printListOfCars(true);
+        System.out.println("After simulation, the result is:");
+        for(String carInfo: fieldManager.getListOfCarsInfo(true)) {
+            System.out.println("- " + carInfo);
+        }
     }
 
 }
